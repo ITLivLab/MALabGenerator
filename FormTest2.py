@@ -1,8 +1,7 @@
 
 from flask import Flask, request, Response, jsonify, render_template
 from functools import wraps
-import json
-import os.systems
+import json, os
 
 # Initialize the Flask application
 app = Flask(__name__)
