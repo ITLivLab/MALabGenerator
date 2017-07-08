@@ -13,6 +13,7 @@ Path = "C:\Users\Admin\Projects\"
 # modifying vm varible to shorten code
 Modify = "modifyvm " + " " + (projectname) + " "
 ModifyNet = "modifyvm " + " " + (projectname) + " --intnet1 "
+Clone = os.system(VBoxManage + " " + ' clonevm ' + " " + (os) + ' -name ' + " " +(projectname) + " "  +' --register')
 
 @app.route('/')
 def index():
@@ -38,20 +39,21 @@ def incoming():
 
     return "project name %s os %s net %s note %s"%(projectname,os,net,note)
 
-def clone(os,projectname):
+def clonevm(os,projectname):
         os.system("mkdir " + (Path) + (projectname))
-        os.system([VBoxManage + " " + ' clonevm ' + " " + (os) + ' -name ' + " " +(projectname) + " " + ' --register']) #Made to string
 
-def network(projectname, net): #combine clone and network function
     if (net == "inetsim" or net == "vpn" or net == "tor"):
-        os.system(VBoxManage + " " + ModifyNet + " " + net)
+        clone()
+        os.system(VBoxManage + " " + ModifyNet' + " " + (net))
     elif (net=="direct"):
-        os.system(VBoxManage +  " " + Modify + " " + (projectname) + " " + ' NAT')
+        clone()
+        os.system(VBoxManage +  " " + Modify + " " +  ' NAT')
     elif (net=="none"):
-        os.system(VBoxManage + " " + Modify + " " + (projectname) + ' --nic1 none ')
-    
+        clone()
+        os.system(VBoxManage + " " + Modify + " " + ' --nic1 none ')
+            
 def start(projectname):
-    os.system([VBoxManage + " " + 'startvm' +  " " + (projectname)])
+    os.system(VBoxManage + " " + 'startvm' +  " " + (projectname))
 
 #def shutdown(projectname): #Dont really need this
     #os.system([VBoxManage, 'controlvm' + (projectname) + 'poweroff'])
