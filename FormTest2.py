@@ -5,7 +5,10 @@ import json, os
 
 # Initialize the Flask application
 app = Flask(__name__)
- 
+
+#path to VBoxManage on Windows...will change for Linux
+VBoxManage = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+
 @app.route('/')
 def index():
     return "HELLO"
@@ -23,30 +26,24 @@ def incoming():
     net = request.form['net'] #collects user input for type of network they selected
     network('projectname' ,'net') #modifies clones network settings
     note = request.form['note'] # collects user input in textbox
-    malware = request.files["file"].read()
-    file = open('malware.exe','w')
+    malware = request.files["file"].read() #Fix this! Save the file without reading
+    file = open('malware.exe','wb') #Add path so you don't overwrite things. Path should contain projectname
     file.write(malware)
     file.close()
 
     return "project name %s os %s net %s note %s"%(projectname,os,net,note)
 
-#path to VBoxManage on Windows...will change for Linux
-VBoxManage = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
-
-# modifying vm varible to shorten code
-Modify = "modifyvm " + (projectname) + " "
-
 def clone(os,projectname):
-    os.system('lxterminal', '-e') #starts command prompt
-    #Create a directory if it does not exist
+    os.system('lxterminal', '-e') #Don't need to open a terminal, just run commands
+    #we're assuming that this is a new project. we can ignore checking for directories
     if (os.path.isdir(Path + projectname) == False):
         debug("Creating a directory")
         os.system("mkdir " + (Path) + (projectname))
-    os.system('lxterminal', '-e') # starts a command prompt (actually a terminal in linux)
-    os.system([VBoxManage, 'clonevm' + (os) + '-name ' + (projectname) + '--register'])
+    os.system('lxterminal', '-e') # Don't need to open terminal again
+    os.system([VBoxManage, 'clonevm' + (os) + '-name ' + (projectname) + '--register']) #This has to be a string. 
 
-def network(projectname, net):
-    os.system('lxterminal', '-e') #starts command prompt
+def network(projectname, net): #combine clone and network function
+    os.system('lxterminal', '-e') #STOP IT
     
     if (net == "inetsim" or net == "vpn" or net == "tor"):
         os.system(VBoxManage, Modify + net)
@@ -61,9 +58,9 @@ def network(projectname, net):
         os.system(VBoxManage, 'modifyvm ' + (projectname) + ' --nic1 none ')
     
 def start(projectname):
-    os.system('lxterminal', '-e') # starts a command prompt (actually a terminal in linux)
+    os.system('lxterminal', '-e') # WHY???????????????!??!?!!!
     os.system([VBoxManage, 'startvm' + (projectname)])
 
-def shutdown(projectname):
-    os.system('lxterminal', '-e') # starts a command prompt (actually a terminal in linux)
+def shutdown(projectname): #Dont really need this
+    os.system('lxterminal', '-e') # YOU'RE FIRED
     os.system([VBoxManage, 'controlvm' + (projectname) + 'poweroff'])
