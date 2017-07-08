@@ -28,7 +28,6 @@ def webui():
 def incoming():
     projectname = request.form['projectname'] #collects user input for project name
     os = request.form['os'] #collects user input for what type of OS they selected
-    clone('os','projectname') # creates clone 
     net = request.form['net'] #collects user input for type of network they selected
     network('projectname' ,'net') #modifies clones network settings
     note = request.form['note'] # collects user input in textbox
@@ -43,13 +42,13 @@ def clonevm(os,projectname):
         os.system("mkdir " + (Path) + (projectname)) # creates new directory for project
 
     if (net == "inetsim" or net == "vpn" or net == "tor"):
-        clone() # creates clone
-        os.system(VBoxManage + " " + ModifyNet' + " " + (net)) # modifies clones network
+        clone('os','projectname') # creates clone
+        os.system(VBoxManage + " " + ModifyNet + " " + (net)) # modifies clones network
     elif (net=="direct"):
-        clone() # creates clone
+        clone('os','projectname') # creates clone
         os.system(VBoxManage +  " " + Modify + " " +  ' NAT') #modifies clones network
     elif (net=="none"):
-        clone() # create clone
+        clone('os','projectname') # create clone
         os.system(VBoxManage + " " + Modify + " " + ' --nic1 none ') # modifies clones network
             
 def start(projectname):
