@@ -2,7 +2,7 @@
 from flask import Flask, request, Response, jsonify, render_template
 from functools import wraps
 import json
-import os.systems
+import os
 import socket
 import _random
 
@@ -25,22 +25,22 @@ def incoming():
     net = request.form['net'] #collects user input for type of network they selected
     note = request.form['note'] # collects user input in textbox
     malware = request.files["file"].read()
-    file = open('malware.exe','w')
+    file = open('malware.exe','w') #overwrites the old file. save it to a folder.
     file.write(malware)
     file.close()
 
     return "project name %s os %s net %s note %s"%(projectname,os,net,note)
 
-def clone(os,projectname):
-    os.system('lxterminal', '-e') #starts command prompt
-    #Create a directory if it does not exist
+def clone(os,projectname): #combine with network
+    os.system('lxterminal', '-e') #starts command prompt #no
+    #Create a directory if it does not exist#no need to do this
     if (os.path.isdir(Path + projectname) == False):
         debug("Creating a directory")
         os.system("mkdir " + (Path) + (projectname))
     os.system('lxterminal', '-e') # starts a command prompt (actually a terminal in linux)
     os.system([VBoxManage, 'clonevm' + (os) + '-name ' + (projectname) + '--register'])
 
-def network(projectname, net):
+def network(projectname, net): #combine with clone
     #project name specified by user required for naming the virtual machine
     #net specified by dropdown box and specifies the virtual machine network configuration
     #quality from 0 - 100 specifying the quality of the display.
@@ -66,11 +66,11 @@ def network(projectname, net):
     #I don't know which properties in modifyvm i'll need, so this will help make things quicker for me.
     #start with 'modifyvm PROJECTNAME '
     commandString = "modifyvm " + (projectname) + " "
-
+    #this looks fine
     if (net == "inetsim" or net == "vpn" or net == "tor"):
         #if net is equal to either of those above, just put in the value of net next to --intnet1 .
         commandString += "--intnet1 " + net + " "
-    elif (net == "direct"):
+    elif (net == "direct"): #Should be NAT, fix this.
         #otherwise, add this
         commandString += "--hostonlyif create "
     elif (net == "none"):
@@ -81,6 +81,7 @@ def network(projectname, net):
     #vrde: allow remote desktop connections
     #vrdemulticon: allow simultanious(spelling) connections to same VM (this can allow a group to connect to same VM)
     #vrdeport: specifies the ports that this VM will attempt to bind to. 
+    #look up documentation and validate this
     commandString += "--vrde on --vrdemulticon on --vrdeport --vrdeport 5000-5050 --vrdeaddress <IP address>"
 
     #put the final command into command prompt
