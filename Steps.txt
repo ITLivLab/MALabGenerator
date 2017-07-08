@@ -1,0 +1,7 @@
+User fills out html form
+system pulls data from form
+system creates file and saves in new directory
+system creates new clone using users specifications from form
+system saves malware file uploaded by user to project file
+system saves user notes to a txt file in project folder
+system starts clonevm
