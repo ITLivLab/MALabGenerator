@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>Malware Analysis</h1>
+<form enctype="multipart/form-data" action="upload" method="post">
+    Project Name: <br>
+    <input type="text" name="projectname"><br><br>
+    Operating System: <br>
+    <select name="os">
+        <option value="winxp">Windows XP</option>
+        <option value="winxp_tools">Windows XP with Tools</option>
+        <option value="win7">Windows 7</option>
+        <option value="win7_tools">Windows 7 with Tools</option>
+        <option value="win10">Windows 10</option>
+        <option value="win10_tools">Windows 10 with Tools</option>
+        <option value="ubuntu">Ubuntu Desktop</option>
+        <option value="remnux">Remnux</option>
+    </select> <br><br>
+    Network: <br>
+    <select name="net">
+        <option value="inetsim">InetSim</option>
+        <option value="vpn">VPN</option>
+        <option value="tor">Tor</option>
+        <option value="direct">Direct Connection</option>
+        <option value="none">None</option>
+    </select> <br><br>
+    File:<br>
+    <input name="file" type="file" /> <br><br>
+    <textarea name="note" rows="10" cols="20"> </textarea><br><br>
+    <input type="submit">
+</form>
+</body>
+</html>
