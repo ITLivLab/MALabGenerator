@@ -40,20 +40,20 @@ def incoming():
     return "project name %s os %s net %s note %s"%(projectname,os,net,note)
 
 def clonevm(os,projectname):
-        os.system("mkdir " + (Path) + (projectname))
+        os.system("mkdir " + (Path) + (projectname)) # creates new directory for project
 
     if (net == "inetsim" or net == "vpn" or net == "tor"):
-        clone()
-        os.system(VBoxManage + " " + ModifyNet' + " " + (net))
+        clone() # creates clone
+        os.system(VBoxManage + " " + ModifyNet' + " " + (net)) # modifies clones network
     elif (net=="direct"):
-        clone()
-        os.system(VBoxManage +  " " + Modify + " " +  ' NAT')
+        clone() # creates clone
+        os.system(VBoxManage +  " " + Modify + " " +  ' NAT') #modifies clones network
     elif (net=="none"):
-        clone()
-        os.system(VBoxManage + " " + Modify + " " + ' --nic1 none ')
+        clone() # create clone
+        os.system(VBoxManage + " " + Modify + " " + ' --nic1 none ') # modifies clones network
             
 def start(projectname):
-    os.system(VBoxManage + " " + 'startvm' +  " " + (projectname))
+    os.system(VBoxManage + " " + 'startvm' +  " " + (projectname))# starts vm
 
 #def shutdown(projectname): #Dont really need this
     #os.system([VBoxManage, 'controlvm' + (projectname) + 'poweroff'])
