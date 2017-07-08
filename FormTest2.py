@@ -31,8 +31,9 @@ def incoming():
     net = request.form['net'] #collects user input for type of network they selected
     network('projectname' ,'net') #modifies clones network settings
     note = request.form['note'] # collects user input in textbox
+    note.save(Path + projectname + 'note.txt', 'wb')
     malware = request.files["file"] #I fixed it
-    file = open(Path + projectname + 'malware.exe','wb') #added path
+    malware.save(Path + projectname + 'malware.exe','wb') #added path
     file.write(malware)
     file.close()
 
