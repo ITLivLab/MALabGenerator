@@ -10,10 +10,15 @@ app = Flask(__name__)
 VBoxManage = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
 #Created Path to where users will have their projects saved (will be changed when path is known)
 Path = "C:\Users\Admin\Projects\"
+#
 # modifying vm varible to shorten code
 Modify = "modifyvm " + " " + (projectname) + " "
+#creates variable for net config to reduce code. This modifies teh network settings of the clone
 ModifyNet = "modifyvm " + " " + (projectname) + " --intnet1 "
-Clone = os.system(VBoxManage + " " + ' clonevm ' + " " + (os) + ' -name ' + " " +(projectname) + " "  +' --register')
+#creates clone variable to reduce code. This clones the VM
+Clone = os.system(VBoxManage + " " + " clonevm " + " " + (os) + ' -name ' + " " +(projectname) + " "  +" --register")
+#creates remote variable to reduce code. This turns on remote desktop and allows multiple users to remote into same clone
+Remote = "--vrde on --vrdemulticon on --vrdeport 0 --vrdeaddress <IP address>" #not correct - still researching
 
 @app.route('/')
 def index():
@@ -37,7 +42,7 @@ def incoming():
     file.write(malware)
     file.close()
 
-    return "project name %s os %s net %s note %s"%(projectname,os,net,note)
+    return "project name %s os %s net %s note %s"%(projectname,os,net,note)# displays the name, os, network and note
 
 def clonevm(os,projectname):
         os.system("mkdir " + (Path) + (projectname)) # creates new directory for project
