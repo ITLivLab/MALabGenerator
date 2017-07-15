@@ -1,7 +1,7 @@
 
 from flask import Flask, request, Response, jsonify, render_template
 from functools import wraps
-import json, os
+import json, os, random
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -17,8 +17,11 @@ Modify = "modifyvm " + " " + (projectname) + " "
 ModifyNet = "modifyvm " + " " + (projectname) + " --intnet1 "
 #creates clone variable to reduce code. This clones the VM
 Clone = os.system(VBoxManage + " " + " clonevm " + " " + (os) + ' -name ' + " " +(projectname) + " "  +" --register")
+#returns the IP address of VM user wants to remote into
+IpAddress = os.system(VBoxManage + "guestproperty get" + " " + (projectname)  + " " + "/VirtualBox/GuestInfo/Net/0/V4/IP")
 #creates remote variable to reduce code. This turns on remote desktop and allows multiple users to remote into same clone
-Remote = "--vrde on --vrdemulticon on --vrdeport 0 --vrdeaddress <IP address>" #not correct - still researching
+Remote = "--vrde on --vrdemulticon on --vrdeport + " (port) " + --vrdeaddress " (IpAddress) #not correct - still researching
+myList = [] # creates a list called myList to store port numbers in
 
 @app.route('/')
 def index():
@@ -43,6 +46,22 @@ def incoming():
     file.close()
 
     return "project name %s os %s net %s note %s"%(projectname,os,net,note)# displays the name, os, network and note
+
+#function to randomly generate a number between 5000 and 6000
+def ip():
+var port = random.randint(5000, 6000)
+# While True do the ip function of randomly generating numbers between 5000 and 6000
+taken = True
+#While True check if port is on list, if it is, loop
+while taken:
+   if(myList.Contains(port)) #if x is on list
+    ip()
+     taken = True
+    else # if port is NOT on list
+      myList.Add(port); #Add x into list
+        taken =  #return false
+      break #  break loop
+    
 
 def clonevm(os,projectname):
         os.system("mkdir " + (Path) + (projectname)) # creates new directory for project
