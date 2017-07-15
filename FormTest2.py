@@ -43,13 +43,13 @@ def clonevm(os,projectname):
         os.system("mkdir " + (Path) + (projectname)) # creates new directory for project
 
     if (net == "inetsim" or net == "vpn" or net == "tor"):
-        clone # creates clone
+        Clone # creates clone
         os.system(VBoxManage + " " + ModifyNet + " " + (net)) # modifies clones network
     elif (net=="direct"):
-        clone # creates clone
+        Clone # creates clone
         os.system(VBoxManage +  " " + Modify + " " +  ' NAT') #modifies clones network
     elif (net=="none"):
-        clone # create clone
+        Clone # create clone
         os.system(VBoxManage + " " + Modify + " " + ' --nic1 none ') # modifies clones network
             
 def start(projectname):
