@@ -51,15 +51,12 @@ def incoming():
 def ip():
 var port = random.randint(5000, 6000)
 # While True do the ip function of randomly generating numbers between 5000 and 6000
-taken = True
 #While True check if port is on list, if it is, loop
-while taken:
-   if(myList.Contains(port)) #if x is on list
+while True:
+   (myList.Contains(port)) #if x is on list
     ip()
-     taken = True
     else # if port is NOT on list
       myList.Add(port); #Add x into list
-        taken =  #return false
       break #  break loop
     
 
